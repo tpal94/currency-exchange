@@ -1,0 +1,43 @@
+%p#notice= notice
+%p
+  %strong Base currency:
+  = @conversion.base_currency
+%p
+  %strong Target currency:
+  = @conversion.target_currency
+%p
+  %strong Base amount:
+  = @conversion.base_amount
+%p
+  %strong Current Target Rate:
+  = @current_rate
+%p
+  %strong Target amount Now:
+  = @conversion.base_amount*@current_rate
+.row
+  .col-4
+    = line_chart @array_datewise,xtitle: "Week", ytitle: "Rate"
+  .col-8
+    .card-body.table-responsive
+      %table.table.table-hover.table-valign-middle
+        %thead
+          %tr
+            %th Year-Week
+            %th Target currency Rate
+            %th Base amount
+            %th Target Amount
+            %th Profit/Loss
+        %tbody#conversionTable
+          - @array_datewise.each do |key, value|
+            %tr
+              %td= key.to_date.strftime("%Y-Week no-%U")
+              %td.rate
+                = value
+              %td= @conversion.base_amount
+              %td= @conversion.base_amount*value
+              %td= @current_rate > value ? "Profit" : "Loss"
+
+
+= link_to 'Edit', edit_conversion_path(@conversion)
+|
+= link_to 'Back', conversions_path

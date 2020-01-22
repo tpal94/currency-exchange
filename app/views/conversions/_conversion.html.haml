@@ -1,0 +1,17 @@
+%tr{id: "#{conversion.id}", 'data-link':"#{edit_conversion_path(conversion.id)}"}
+  %td
+    = conversion.id
+  %td
+    = conversion.base_currency
+  %td
+    = conversion.base_amount
+  %td
+    = link_to conversion_path(conversion.id) do
+      %i.fa.fa-folder-open.text-info.mr-2{"aria-hidden" => "true", "data-toggle"=>"tooltip", "title"=>"View Details"}
+    = link_to task_conversion_path(conversion.id) do
+      %i.fa.fa-pencil.text-secondary{"aria-hidden" => "true", "data-toggle"=>"tooltip", "title"=>"Edit"}
+    %a
+      %i.fa.fa-folder.text-danger.ml-2{"aria-hidden" => "true", "data-toggle"=>"tooltip", "title"=>"Preview conversion"}
+
+    = link_to conversion_path(conversion), method: :delete do
+      %i.fa.fa-trash.text-danger.ml-2{"aria-hidden" => "true", "data-toggle"=>"tooltip", "title"=>"Delete", "name" => "#{conversion.id}", "class" => "delete-conversion", "id" => "T#{conversion.id}"}

@@ -1,0 +1,26 @@
+%p#notice= notice
+%h1 Conversions
+
+= render 'form'
+%hr
+  .card-body.table-responsive
+    %table.table.table-hover.table-valign-middle
+      %thead
+        %tr
+          %th Base currency
+          %th Target currency
+          %th Base amount
+          %th Number Of Weeks
+          %th{:colspan => "3"}
+      %tbody#conversionTable
+        - @conversions.each do |conversion|
+          %tr
+            %td= conversion.base_currency
+            %td= conversion.target_currency
+            %td= conversion.base_amount
+            %td= conversion.week_count
+            %td= link_to 'Show', conversion
+            %td= link_to 'Edit', edit_conversion_path(conversion)
+            %td= link_to 'Destroy', conversion, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Conversion', new_conversion_path

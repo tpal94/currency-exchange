@@ -1,0 +1,20 @@
+= form_with(model: @conversion, remote: true) do |form|
+  - if @conversion.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@conversion.errors.count, "error")
+        prohibited this @conversion from being saved:
+      %ul
+        - @conversion.errors.full_messages.each do |message|
+          %li= message
+  .row.mr-3.ml-3
+    .field.col-3
+      = form.select(:base_currency, ["EUR"], { prompt: "Select Base Currency" }, { :class => 'form-control select2', style: 'width: 100%;' ,required: true})
+    .field.col-3
+      = form.number_field :base_amount, placeholder: "Enter Amount", class: "form-control",required: true
+    .field.col-3
+      = form.select(:target_currency, Conversion::AVAILABLE_CURRENCIES, { prompt: "Select Target Currency" }, { :class => 'form-control select2', style: 'width: 100%;', required: true })
+    .field.col-3
+      = form.select(:week_count, 1..25, { prompt: "Select no.of weeks" }, { :class => 'form-control select2', style: 'width: 100%;', required: true})
+    
+    = form.submit 'Convert', class: "mt-5 btn btn-primary"
